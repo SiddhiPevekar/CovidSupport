@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@700&display=swap');
+:root{
+    --primary: #f54254;
+}
+
+#total-record{
+    background-color: var(--primary);
+}
