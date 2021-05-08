@@ -29,10 +29,10 @@
             
             <div class="row">
               <div class="col-md-6 col-lg-6 col-xxl-6 col-12 d-flex justify-content-center flex-column">
-                <button style="background: #fb7267; padding: 20px 40px; border: none; border-radius: 40px; font-family: 'Hind Siliguri', sans-serif;"><a href="/login" style="color: white; font-size: 20px; text-decoration: none;">Get the Live Data</a></button>
+                <button style="background: #fb7267; padding: 20px 40px; border: none; color: white; font-size: 20px; border-radius: 40px; font-family: 'Hind Siliguri', sans-serif;" data-bs-toggle="modal" data-bs-target="#register_patient">Get the Live Data</a></button>
               </div>
               <div class="col-md-6 col-lg-6 col-xxl-6 col-12 d-flex justify-content-center flex-column">
-                <button style="background: #fb7267; padding: 20px 40px; border: none; color: white; font-size: 20px; border-radius: 40px; font-family: 'Hind Siliguri', sans-serif;">Get the Information</button>
+                <button style="background: #fb7267; padding: 20px 40px; border: none; color: white; font-size: 20px; border-radius: 40px; font-family: 'Hind Siliguri', sans-serif;" data-bs-toggle="modal" data-bs-target="#exampleModal">Login as Supplier</button>
               </div>
             </div>
           </div>
@@ -75,13 +75,6 @@
         </thead>
         <tbody>
           
-          <!-- <tr>
-            <td>Andaman and Nicobar Islands</td>
-            <td>138</td>
-            <td>5410</td>
-            <td>66</td>
-          </tr> -->
-          
           {% for state_dict in state_list %}
           <tr>
             <td>{{forloop.counter}}</td>
@@ -104,6 +97,133 @@
         </tfoot>
       </table>
     </div>
+    <!-- Modal Patient Login-->
+    <div class="modal fade" id="login_patient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div> -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="{%url 'patient_login_homepage'%}" method="post"> {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
+              <div class="form-group">
+                <label for="p_username">Username</label>
+                <input type="text" class="form-control" id="p_username" name="p_username" placeholder="Choose a unique username" required>
+              </div>
+              <div class="form-group">
+                <label for="p_pass1">Enter your password </label>
+                <input type="password" class="form-control" id="p_pass1" name="p_pass1" placeholder="Enter your password "required>
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal Patient register-->
+    <div class="modal fade" id="register_patient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalTitle">Register Here</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="{%url 'patient_homepage'%}" method="post"> {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
+              <div class="form-group">
+                <label for="p_username">Username</label>
+                <input type="text" class="form-control" id="p_username" name="p_username" placeholder="Choose a unique username" required>
+              </div>
+              <div class="form-group">
+                <label for="p_firstname">First Name</label>
+                <input type="text" class="form-control" id="p_firstname" name="p_firstname" placeholder="Enter Your First Name" required>
+              </div>
+              <div class="form-group">
+                <label for="p_lastname">Last Name</label>
+                <input type="text" class="form-control" id="p_lastname" name="p_lastname" placeholder="Enter Your Last Name" required>
+              </div>
+              <div class="form-group">
+                <label for="p_emailid">Email</label>
+                <input type="email" class="form-control" id="p_emailid" name="p_emailid" placeholder="Enter your emailid "required>
+              </div>
+              <div class="form-group">
+                <label for="p_pass1">Enter your password </label>
+                <input type="password" class="form-control" id="p_pass1" name="p_pass1" placeholder="Enter your password "required>
+              </div>
+              <div class="form-group">
+                <label for="p_pass2">Enter your password </label>
+                <input type="password" class="form-control" id="p_pass2" name="p_pass2" placeholder="Enter your password "required>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <p>already have account?<a href="#" data-bs-toggle="modal" data-bs-target="#login_patient"> Login here</a></p>        
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Supplier login-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div> -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="{%url 'supplier_homepage'%}" method="post"> {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
+              <div class="form-group">
+                <label for="emailid">Email</label>
+                <input type="email" class="form-control" id="s_emailid" name="s_emailid" placeholder="Enter your emailid "required>
+              </div>
+              <div class="form-group">
+                <label for="pass">Enter your password </label>
+                <input type="password" class="form-control" id="s_password" name="s_password" placeholder="Enter your password "required>
+              </div>
+              
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
     <script src="{% static 'information/bootstrap-5.0.0-beta3-dist/js/bootstrap.min.js' %}" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
     <!--Cdn for bootstrap5 datatable-->

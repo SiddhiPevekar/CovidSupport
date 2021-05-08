@@ -1,0 +1,56 @@
+{% extends 'information/base.html' %}
+{% load static %}
+
+{% block title %}Supplier Homepage{% endblock title %}
+
+{% block content %}
+<h1>Update Data</h1>
+    {% comment %} {% for j in supplier %}
+        {{ j.s_agency_name }}<br>
+        {{ j.s_emailid }}<br>
+        {{ j.s_state}}<br>
+        {{ j.s_district}}<br>
+        {{ j.icu_beds}}<br>
+        {{ j.ventilator_beds}}<br>
+        {{ j.icu_ventilator_beds}}<br>
+        {{ j.oxygen}}<br>
+        <a href="#">EDIT</a> {% endcomment %}
+
+    <table>
+        <tr>
+            <td></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="text"></td>
+        </tr>
+    </table>
+    <input type="submit" value="update">
+
+    {% endfor %}
+{% endblock content %}
