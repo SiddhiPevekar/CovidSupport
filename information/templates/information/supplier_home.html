@@ -4,12 +4,11 @@
 {% block title %}Supplier Homepage{% endblock title %}
 
 {% block content %}
-    
-    {% for j in supplier %}
 
-  
-    <form action="" method="post"> 
-    {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
+{% for j in supplier %}
+
+<form action="{% url 'update_supplier' %}" method="post"> 
+  {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
   <div class="row mb-3">
     <label for="s_agency_name" class="col-sm-2 col-form-label">Agency Name</label>
     <div class="col-sm-10">
@@ -64,16 +63,16 @@
       <input type="text" class="form-control" id="s_password" name="s_password" value="{{j.s_password}}">
     </div>
   </div>
-  <button type="submit" class="btn btn-primary">Update</button>
+  <button type="submit" href="{% url 'update_supplier' %}" class="btn btn-primary">Update</button>
 </form>
-        {{ j.s_agency_name }}<br>
-        {{ j.s_emailid }}<br>
-        {{ j.s_state}}<br>
-        {{ j.s_district}}<br>
-        {{ j.icu_beds}}<br>
-        {{ j.ventilator_beds}}<br>
-        {{ j.icu_ventilator_beds}}<br>
-        {{ j.oxygen}}<br>
-        
-    {% endfor %}
+{% comment %} {{ j.s_agency_name }}<br>
+{{ j.s_emailid }}<br>
+{{ j.s_state}}<br>
+{{ j.s_district}}<br>
+{{ j.icu_beds}}<br>
+{{ j.ventilator_beds}}<br>
+{{ j.icu_ventilator_beds}}<br>
+{{ j.oxygen}}<br> {% endcomment %}
+
+{% endfor %}
 {% endblock content %}

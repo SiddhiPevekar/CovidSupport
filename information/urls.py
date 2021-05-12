@@ -23,5 +23,6 @@ urlpatterns = [
     path('index.html', views.patient_register, name="homepage"),
     path('patient_homepage.html', views.patient_login, name="patient_login_homepage"),
     # path('edit_supplierprofile', views.edit_supplier_profile, name="edit_supplierprofile"),
+    path('update_supplier', views.update_supplier, name="update_supplier"),
 ]
 

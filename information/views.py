@@ -100,11 +100,6 @@ def s_loginpage(request):
 
     return render(request, 'information/supplier_home.html')#where the form is present
 
-# def update_supplier(request):
-
-    
-
-
 def patient_register(request):
    if request.method == "POST":
         p_username = request.POST.get('p_username', False)
@@ -146,5 +141,33 @@ def patient_login(request):
             return render(request, 'information/index.html')
     return render(request, 'information/patient_homepage.html', {"supplier_info": data})
 
+
+
+def update_supplier(request):
+    if request.method == 'POST':
+        s_id = request.POST.get('s_id')
+        s_agency_name = request.POST.get('s_agency_name')
+        s_state = request.POST.get('s_state')
+        s_emailid = request.POST.get('s_emailid')
+        s_password = request.POST.get('s_password')
+        s_district = request.POST.get('s_district')
+        icu_beds = request.POST.get('icu_beds')
+        ventilator_beds= request.POST.get('ventilator_beds')
+        icu_ventilator_beds = request.POST.get('icu_ventilator_beds')
+        oxygen = request.POST.get('oxygen')
+        bool_ans = models.Supplier.objects.filter(s_id=s_id).exists()#condition to match values are equal or not
+
+        if bool_ans == True:
+            supplier_record = models.Supplier( s_id=s_id,s_agency_name=s_agency_name, s_state=s_state, s_emailid=s_emailid, s_password= s_password, s_district=s_district, icu_beds = icu_beds, ventilator_beds=ventilator_beds, icu_ventilator_beds=icu_ventilator_beds, oxygen=oxygen)
+            supplier_record.save()
+            print("Data has been saved")
+            # Supplier.objects.filter(pk=request.POST.get('s_id')).update(
+            #     s_agency_name=s_agency_name,
+            #     s_state=s_state
+            # )
+
+            return render(request, 'information/index.html')
+    return render(request, 'information/index.html')
+           
 
 
