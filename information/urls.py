@@ -20,7 +20,8 @@ from . import views
 urlpatterns = [
     path('', views.homepage, name="covid-homepage"),
     path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),
-    path('patient_homepage.html', views.patient_register, name="patient_homepage"),
+    path('index.html', views.patient_register, name="homepage"),
     path('patient_homepage.html', views.patient_login, name="patient_login_homepage"),
+    # path('edit_supplierprofile', views.edit_supplier_profile, name="edit_supplierprofile"),
 ]
 

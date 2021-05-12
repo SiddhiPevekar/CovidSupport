@@ -1,11 +1,10 @@
-from django.contrib.auth import authenticate
+# from django.contrib.auth import authenticate
 from . import models
 # Create your views here.
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render
 import requests
 from .models import Supplier
-from . import views
+
 
 def download_data() -> dict:
     """
@@ -52,14 +51,23 @@ def s_loginpage(request):
             supval = {
                 "supplier": sup #to get particular object
             }
+            
 
             return render(request, 'information/supplier_home.html',supval)
+            
 
         if bool_ans == False:
 
             return render(request, 'information/index.html')
+        
+        # if request.method == "POST":
+        #     s_agency_name= request.POST.get('s_agency_name', False)
+        #     supplier_record = models.Supplier(s_agency_name=s_agency_name)
+        #     supplier_record.save()
+        # return render(request, 'information/supplier_home.html')
 
-    return render(request, 'information/index.html')#where the form is present
+
+    return render(request, 'information/supplier_home.html')#where the form is present
 
 
 def patient_register(request):
@@ -73,44 +81,27 @@ def patient_register(request):
         patient_record = models.Patient(p_username=p_username, p_firstname=p_firstname, p_lastname=p_lastname, p_emailid=p_emailid, p_pass1=p_pass1, p_pass2=p_pass2)
         patient_record.save()
         print("Data has been saved")
-   return render(request, 'information/patient_homepage.html')
-# def s_loginpage(request):
-#     if request.method == "POST":
-#         username = request.POST.get('s_emailid', False)
-#         password= request.POST.get('s_password', False)
-#         print(username)
-#         print(password)
+   return render(request, 'information/index.html')
 
-#         bool_ans = models.Supplier.objects.filter(s_emailid=username, s_password=password).exists()#condition to match values are equal or not
-
-#         if bool_ans == True:
-#             sup= models.Supplier.objects.filter(s_emailid = username)
-#             supval = {
-#                 "supplier": sup #to get particular object
-#             }
-
-#             return render(request, 'information/supplier_home.html',supval)
-
-#         if bool_ans == False:
-
-#             return render(request, 'information/index.html')
-
-#     return render(request, 'information/index.html')#where the form is present
 def patient_login(request):
     # global user_g
+    data = Supplier.objects.all()
+    print(data)
     if request.method == "POST":
         p_username = request.POST.get('p_username', False)
         p_pass1= request.POST.get('p_pass1', False)
+        
         # user_g = username
         print(p_username)
-        print(p_password)
+        print(p_pass1)
 
         bool_ans = models.Patient.objects.filter(p_username=p_username, p_pass1=p_pass1).exists()
 
         if bool_ans == True:
             pat= models.Patient.objects.filter(p_username=p_username)
             patval = {
-                "patient": pat
+                "patient": pat,
+                "supplier_info": data
             }
 
             return render(request, 'information/patient_homepage.html',patval)
@@ -118,6 +109,9 @@ def patient_login(request):
         if bool_ans == False:
 
             return render(request, 'information/index.html')
-    return render(request, 'information/index.html')
+    return render(request, 'information/patient_homepage.html', {"supplier_info": data})
 
 
+# def edit_supplier_profile(request):
+#     data = Supplier.objects.get()
+#     return render(request, "information/edit_supplierprofile.html")

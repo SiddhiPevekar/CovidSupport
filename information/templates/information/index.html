@@ -14,6 +14,13 @@
   <!--Cdn for bootstrap5 datatable https://datatables.net/-->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
   <title>Document</title>    
+  <style>
+    input[type="text"], textarea {/*to remove blue select border*/
+      outline: none;
+      box-shadow:none !important;
+      border:1px solid #ccc !important;
+    }
+  </style>
 </head>
 <body>
   <section class="main_heading">
@@ -137,6 +144,7 @@
         </div>
       </div>
     </div>
+    
     <!-- Modal Patient register-->
     <div class="modal fade" id="register_patient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -148,7 +156,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="{%url 'patient_homepage'%}" method="post"> {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
+            <form action="{%url 'homepage'%}" method="post"> {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
               <div class="form-group">
                 <label for="p_username">Username</label>
                 <input type="text" class="form-control" id="p_username" name="p_username" placeholder="Choose a unique username" required>
@@ -182,7 +190,7 @@
         </div>
       </div>
     </div>
-
+    
     <!-- Modal Supplier login-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
