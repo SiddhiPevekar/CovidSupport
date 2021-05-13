@@ -16,7 +16,7 @@
             <th>No. of ICU+Ventilator beds</th>
             <th>Oxygen Availablility</th>
             <th>Locality</th>
-            <th>View</th>
+            <th>More Details</th>
         </tr>
     </thead>
     <tbody>
@@ -43,27 +43,44 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+            <h5 class="modal-title" id="loginModalTitle">{{supp.s_agency_name}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-          <table>
+          <table class="table table-striped table-bordered myTable" style="width: 100%;">
             <tbody>
         
-        {% comment %} {% for supp in supplier_info %} {% endcomment %}
             <tr>
-                <td>{{supp.s_agency_name}}</td>
+              <td>Hospital/ Agency Name</td>
+              <td>{{supp.s_agency_name}}</td>
             </tr>    
-            <tr><td>{{supp.icu_beds}}</td></tr>
-            <tr><td>{{supp.ventilator_beds}}</td></tr>
-            <tr><td>{{supp.icu_ventilator_beds}}</td></tr>
-            <tr><td>{{supp.oxygen}}</td> </tr>
-            <tr><td>{{supp.s_state}}</td></tr>
-            <tr><td>{{supp.s_district}}</td></tr>    
-        {% comment %} {% endfor %} {% endcomment %}
-            
+            <tr>
+              <td>No. of available ICU Beds</td>
+              <td>{{supp.icu_beds}}</td>
+            </tr>
+            <tr>
+              <td>No. of available Ventilator Beds</td>
+              <td>{{supp.ventilator_beds}}</td>
+            </tr>
+            <tr>
+              <td>No. of available ICU+Ventilator Beds</td>
+              <td>{{supp.icu_ventilator_beds}}</td>
+            </tr>
+            <tr>
+              <td>Is Oxygen Cylinder available?</td>
+              <td>{{supp.oxygen}}</td> </tr>
+            <tr>
+              <td>States where the services are provided</td>
+              <td>{{supp.s_state}}</td>
+            </tr>
+            <tr>
+              <td>Districts where the services are provided</td>
+              <td>{{supp.s_district}}</td></tr>    
+            <tr>
+              <td>Contact us at</td>
+              <td>{{supp.s_emailid}}</td></tr>
         </tbody>
     </table>
           </div>
