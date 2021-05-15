@@ -103,12 +103,12 @@ def s_loginpage(request):
 
 def patient_register(request):
    if request.method == "POST":
-        p_username = request.POST.get('p_username', False)
-        p_firstname = request.POST.get('p_firstname', False)
-        p_lastname = request.POST.get('p_lastname ', False)
-        p_emailid = request.POST.get('p_emailid', False)
-        p_pass1 = request.POST.get('p_pass1', False)
-        p_pass2 = request.POST.get('p_pass2', False)
+        p_username = request.POST.get('p_username')
+        p_firstname = request.POST.get('p_firstname')
+        p_lastname = request.POST.get('p_lastname')
+        p_emailid = request.POST.get('p_emailid')
+        p_pass1 = request.POST.get('p_pass1')
+        p_pass2 = request.POST.get('p_pass2')
         patient_record = models.Patient(p_username=p_username, p_firstname=p_firstname, p_lastname=p_lastname, p_emailid=p_emailid, p_pass1=p_pass1, p_pass2=p_pass2)
         patient_record.save()
         print("Data has been saved")
@@ -122,9 +122,9 @@ def patient_login(request):
         p_username = request.POST.get('p_username', False)
         p_pass1= request.POST.get('p_pass1', False)
         
-        user_p = p_username
         print(p_username)
-        print(p_pass1)
+        user_p = p_username
+        print(user_p)
 
         bool_ans = models.Patient.objects.filter(p_username=p_username, p_pass1=p_pass1).exists()
 
@@ -142,7 +142,43 @@ def patient_login(request):
             return render(request, 'information/index.html')
     return render(request, 'information/patient_homepage.html')
 
+def profile_patient(request):
+    return render(request, 'information/patient_profile.html')
 
+def update_patient(request):
+    global user_p
+    if user_p!="":
+        print(user_p)
+        pat = models.Patient.objects.filter(p_username=user_p)
+        if request.method == 'POST':
+            # s_id = request.POST.get('s_id')
+            p_username = request.POST.get('p_username')
+            p_firstname = request.POST.get('p_firstname')
+            p_lastname = request.POST.get('p_lastname')
+            p_emailid = request.POST.get('p_emailid')
+            p_pass1 = request.POST.get('p_pass1')
+            p_pass2 = request.POST.get('p_pass2')
+            for i in pat:
+                i.p_username = p_username
+                i.save()
+                i.p_firstname = p_firstname
+                i.save()
+                i.p_lastname = p_lastname
+                i.save()
+                i.p_emailid = p_emailid
+                i.save()
+                i.p_pass1 = p_pass1
+                i.save()
+                i.p_pass2 = p_pass2
+                i.save()
+            print("Details saved")
+            patient = {
+                "pat_d": pat
+            }
+
+        return render(request,'information/patient_homepage.html', patient)
+
+    return render(request, 'information/patient_homepage.html')
 
 def update_supplier(request):
     global user_s 
@@ -184,5 +220,6 @@ def update_supplier(request):
             supplier = {
                 "sup": supp
             }
-    return render(request, 'information/supplier_home.html', supplier)
+        return render(request, 'information/index.html', supplier)
+    return render(request, 'information/index.html')
            
