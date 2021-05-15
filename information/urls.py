@@ -20,11 +20,13 @@ from . import views
 urlpatterns = [
     path('', views.homepage, name="covid-homepage"),
     path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),
-    path('index.html', views.patient_register, name="homepage"),
-    path('patient_homepage.html', views.patient_login, name="patient_login_homepage"),
+    path('patient_register', views.patient_register, name="patient_register"),
+    path('patient_login_homepage', views.patient_login, name="patient_login_homepage"),
     # path('edit_supplierprofile', views.edit_supplier_profile, name="edit_supplierprofile"),
     path('update_supplier', views.update_supplier, name="update_supplier"),
     path('profile_patient',views.profile_patient, name="profile_patient"),
     path('update_patient', views.update_patient, name="update_patient"),
+    path('logout_user', views.logout_user, name="logout_user"),
+    path('book_now', views.book_now, name="book_now")
 ]
 

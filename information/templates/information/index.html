@@ -168,7 +168,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form action="{%url 'homepage'%}" method="post"> {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
+              <form action="{%url 'patient_register'%}" method="post"> {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
                 <div class="form-group">
                   <label for="p_username">Username</label>
                   <input type="text" class="form-control" id="p_username" name="p_username" placeholder="Choose a unique username" required>

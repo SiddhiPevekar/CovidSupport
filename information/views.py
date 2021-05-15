@@ -1,7 +1,7 @@
 # from django.contrib.auth import authenticate
 from . import models
 # Create your views here.
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 import requests
 from .models import Supplier
 from matplotlib import pyplot as plt
@@ -97,7 +97,8 @@ def s_loginpage(request):
 
         if bool_ans == False:
 
-            return render(request, 'information/index.html')
+            # return render(request, 'information/index.html')
+            return redirect('/')
 
     return render(request, 'information/supplier_home.html')#where the form is present
 
@@ -112,7 +113,8 @@ def patient_register(request):
         patient_record = models.Patient(p_username=p_username, p_firstname=p_firstname, p_lastname=p_lastname, p_emailid=p_emailid, p_pass1=p_pass1, p_pass2=p_pass2)
         patient_record.save()
         print("Data has been saved")
-   return render(request, 'information/index.html')
+        return redirect('/')
+#    return render(request, 'information/index.html')
 
 def patient_login(request):
     global user_p
@@ -138,14 +140,24 @@ def patient_login(request):
             return render(request, 'information/patient_homepage.html',patval)
 
         if bool_ans == False:
-
-            return render(request, 'information/index.html')
+            return redirect('/')
+            # return render(request, 'information/index.html')
     return render(request, 'information/patient_homepage.html')
 
 def profile_patient(request):
-    return render(request, 'information/patient_profile.html')
+    global user_p
+    if user_p!="":
+        print(user_p)
+        pat = models.Patient.objects.filter(p_username=user_p)
+        patval = {
+            "patient": pat
+        }
 
+    return render(request, 'information/patient_profile.html',patval)
+    
 def update_patient(request):
+    global user_p
+    data = Supplier.objects.all()
     global user_p
     if user_p!="":
         print(user_p)
@@ -173,7 +185,8 @@ def update_patient(request):
                 i.save()
             print("Details saved")
             patient = {
-                "pat_d": pat
+                "pat_d": pat,
+                "supplier_info": data
             }
 
         return render(request,'information/patient_homepage.html', patient)
@@ -222,4 +235,24 @@ def update_supplier(request):
             }
         return render(request, 'information/index.html', supplier)
     return render(request, 'information/index.html')
+
+def book_now(request):
+    global user_p
+    global user_s
+    if user_p!="":
+        print(user_p)
+        # pat = models.Patient.objects.filter(p_username=user_p)
+        supp = models.Supplier.objects.all()
+        print(supp)
+        # for i in supp:
+    #try to create objects for inner functions
+    return redirect('/')
+
+
+def logout_user(request):
+    global user_s
+    global user_p
+    user_s =""
+    user_p =""
+    return redirect('/')
            

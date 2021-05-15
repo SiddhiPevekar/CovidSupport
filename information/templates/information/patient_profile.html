@@ -4,13 +4,13 @@
 {% block title %}Patient Profile{% endblock title %}
 
 {% block content %}
-{% comment %} {% for j in patient %} {% endcomment %}
+{% for j in patient %}
 <form action="{% url 'update_patient' %}" method="post"> 
   {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
   <div class="row mb-3">
     <label for="p_username" class="col-sm-2 col-form-label">Patient Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="p_username" name="p_username" value="{{pat_d.p_firstname}}">
+      <input type="text" class="form-control" id="p_username" name="p_username" value="{{j.p_username}}">
     </div>
   </div>
   <div class="row mb-3">
@@ -31,6 +31,7 @@
       <input type="email" class="form-control" id="p_emailid" name="p_emailid" value="{{j.p_emailid}}">
     </div>
   </div>
+  
   <div class="row mb-3">
     <label for="p_pass1" class="col-sm-2 col-form-label">Password</label>
     <div class="col-sm-10">
@@ -46,6 +47,6 @@
   
   <button type="submit"  class="btn btn-primary">Update</button>
 </form>
-{% comment %} {% endfor %} {% endcomment %}
+{% endfor %}
 
 {% endblock content %}
