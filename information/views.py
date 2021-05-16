@@ -8,6 +8,7 @@ from matplotlib import pyplot as plt
 
 user_s =""
 user_p =""
+book_s =""
 
 def download_data() -> dict:
     """
@@ -235,18 +236,25 @@ def update_supplier(request):
             }
         return render(request, 'information/index.html', supplier)
     return render(request, 'information/index.html')
-
+# def detail(request, id):
+#     product=Product.objects.get(id=id)
+#     context={'product':product}
 def book_now(request):
     global user_p
-    global user_s
+    # global user_s
+    # global book_s
     if user_p!="":
         print(user_p)
+        # s_id = request.GET.get('s_id')
+        # s = Supplier.objects.get(pk=s_id)
+        # print(s)
         # pat = models.Patient.objects.filter(p_username=user_p)
-        supp = models.Supplier.objects.all()
-        print(supp)
+        # supp = models.Supplier.objects.filter(s_emailid=book_s)
+        # print(supp)
         # for i in supp:
     #try to create objects for inner functions
-    return redirect('/')
+    # return redirect('/')
+    return render(request, 'information/book_requirement.html')
 
 
 def logout_user(request):

@@ -6,64 +6,65 @@
 {% block content %}
 
 {% for j in supplier %}
-
+<div class="col-md-7 col-lg-7 col-12 col-xxl-7">
 <form action="{% url 'update_supplier' %}" method="post"> 
   {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
-  <div class="row mb-3">
-    <label for="s_agency_name" class="col-sm-2 col-form-label">Agency Name</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="s_agency_name" name="s_agency_name" value="{{j.s_agency_name}}">
+    <div class="row mb-3">
+      <label for="s_agency_name" class="col-sm-2 col-form-label">Agency Name</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="s_agency_name" name="s_agency_name" value="{{j.s_agency_name}}">
+      </div>
     </div>
-  </div>
-  <div class="row mb-3">
-    <label for="s_emailid" class="col-sm-2 col-form-label">Email Id</label>
-    <div class="col-sm-10">
-      <input type="email" class="form-control" id="s_emailid" name="s_emailid" value="{{j.s_emailid}}">
+    <div class="row mb-3">
+      <label for="s_emailid" class="col-sm-2 col-form-label">Email Id</label>
+      <div class="col-sm-8">
+        <input type="email" class="form-control" id="s_emailid" name="s_emailid" value="{{j.s_emailid}}">
+      </div>
     </div>
-  </div>
-  <div class="row mb-3">
-    <label for="s_state" class="col-sm-2 col-form-label">State</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="s_state" name="s_state" value="{{j.s_state}}">
+    <div class="row mb-3">
+      <label for="s_state" class="col-sm-2 col-form-label">State</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="s_state" name="s_state" value="{{j.s_state}}">
+      </div>
     </div>
-  </div>
-  <div class="row mb-3">
-    <label for="s_district" class="col-sm-2 col-form-label">District</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="s_district" name="s_district" value="{{j.s_district}}">
+    <div class="row mb-3">
+      <label for="s_district" class="col-sm-2 col-form-label">District</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="s_district" name="s_district" value="{{j.s_district}}">
+      </div>
     </div>
-  </div>
-  <div class="row mb-3">
-    <label for="icu_beds" class="col-sm-2 col-form-label">ICU Beds</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="icu_beds" name="icu_beds" value="{{j.icu_beds}}">
+    <div class="row mb-3">
+      <label for="icu_beds" class="col-sm-2 col-form-label">ICU Beds</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="icu_beds" name="icu_beds" value="{{j.icu_beds}}">
+      </div>
     </div>
-  </div>
-  <div class="row mb-3">
-    <label for="ventilator_beds" class="col-sm-2 col-form-label">Ventilator Beds</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="ventilator_beds" name="ventilator_beds" value="{{j.ventilator_beds}}">
+    <div class="row mb-3">
+      <label for="ventilator_beds" class="col-sm-2 col-form-label">Ventilator Beds</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="ventilator_beds" name="ventilator_beds" value="{{j.ventilator_beds}}">
+      </div>
     </div>
-  </div>
-  <div class="row mb-3">
-    <label for="icu_ventilator_beds" class="col-sm-2 col-form-label">ICU+Ventilator Beds</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="icu_ventilator_beds" name="icu_ventilator_beds" value="{{j.icu_ventilator_beds}}">
+    <div class="row mb-3">
+      <label for="icu_ventilator_beds" class="col-sm-2 col-form-label">ICU+Ventilator Beds</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="icu_ventilator_beds" name="icu_ventilator_beds" value="{{j.icu_ventilator_beds}}">
+      </div>
     </div>
-  </div>
-  <div class="row mb-3">
-    <label for="oxygen" class="col-sm-2 col-form-label">Oxygen Availability</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="oxygen" name="oxygen" value="{{j.oxygen}}">
+    <div class="row mb-3">
+      <label for="oxygen" class="col-sm-2 col-form-label">Oxygen Availability</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="oxygen" name="oxygen" value="{{j.oxygen}}">
+      </div>
     </div>
-  </div>
-  <div class="row mb-3">
-    <label for="s_password" class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="s_password" name="s_password" value="{{j.s_password}}">
+    <div class="row mb-3">
+      <label for="s_password" class="col-sm-2 col-form-label">Password</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="s_password" name="s_password" value="{{j.s_password}}">
+      </div>
     </div>
-  </div>
-  <button type="submit"  class="btn btn-primary">Update</button>
+    <button type="submit" class="btn" style="background: #2222af; color: white;">Update</button>
+  
 </form>
 {% comment %} {{ j.s_agency_name }}<br>
 {{ j.s_emailid }}<br>
@@ -75,4 +76,11 @@
 {{ j.oxygen}}<br> {% endcomment %}
 
 {% endfor %}
+
+</div>
+<div class="col-md-5 col-lg-5 col-12 col-xxl-5 d-flex justify-content-center align-items-center">
+  <figure><!--html5 says that when images are placed in fig they are arranged properly-->
+    <img src="{% static 'information/assets/img/supplier.png' %}" class="img-fluid" style="width: 700px; min-height: 100;">
+  </figure>
+</div>
 {% endblock content %}

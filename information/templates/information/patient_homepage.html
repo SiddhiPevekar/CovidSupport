@@ -67,8 +67,8 @@
             </tr>
             <tr>
               <td>No. of available ICU+Ventilator Beds</td>
-              <!-- <td>{{supp.icu_ventilator_beds}} Book now</td> -->
-              <td><div class="row"><div class="col-md-6">{{supp.icu_ventilator_beds}}</div><div class="col-md-6"><a href="{% url 'book_now' %}">Book now</a> </div> </div> </td>
+              <td>{{supp.icu_ventilator_beds}} Book now</td>
+              <!-- <td><div class="row"><div class="col-md-6">{{supp.icu_ventilator_beds}}</div><div class="col-md-6"><a href="{% url 'book_now' %}">Book now</a> </div> </div> </td> -->
             </tr>
             <tr>
               <td>Is Oxygen Cylinder available?</td>
@@ -87,9 +87,11 @@
     </table>
           </div>
           <div class="modal-footer">
+            <a href="{% url 'book_now' %}">Book now</a> 
+            {% comment %} <a href="{% url 'book_now' %}">{{supp.s_id}}</a> {% endcomment %}
           </div>
         </div>
       </div>
     </div>
-    {% endfor %}
-    {% endblock content%}
+  {% endfor %}
+{% endblock content%}
