@@ -1,97 +1,110 @@
-{% extends 'information/base.html' %}
-{% load static %}
+{% extends 'information/base.html' %} {% load static %} {% block title %}Patient Homepage{% endblock title %} {% block content %}
+<!-- <a href="{% url 'profile_patient' %}">View Profile</a>
+<a href="{% url 'logout_user' %}">Logout</a> -->
 
-{% block title %}Patient Homepage{% endblock title %}
-
-{% block content %}
-<a href="{% url 'profile_patient' %}">View Profile</a>
-<a href="{% url 'logout_user' %}">Logout</a>
-
-<table class="table table-striped table-bordered myTable" style="width: 100%; ">
-    <thead>
-        <tr style="background: #fb7267;">
-            {% comment %} <th>Sr. No.</th> {% endcomment %}
-            <th>Hospital/ Agency Name</th>
-            <th>No. of ICU beds</th>
-            <th>No. of Ventilator beds</th>
-            <th>No. of ICU+Ventilator beds</th>
-            <th>Oxygen Availablility</th>
-            <th>Locality</th>
-            <th>More Details</th>
-        </tr>
-    </thead>
-    <tbody>
-        
-        {% for supp in supplier_info %}
-            <tr>
-                {% comment %} <td>{{supp.s_id}}</td> {% endcomment %}
-                <td>{{supp.s_agency_name}}</td>
-                <td>{{supp.icu_beds}}</td>
-                <td>{{supp.ventilator_beds}}</td>
-                <td>{{supp.icu_ventilator_beds}}</td> 
-                <td>{{supp.oxygen}}</td> 
-                <td>{{supp.s_state}}, {{supp.s_district}}</td>
-                <td><p data-bs-toggle="modal" data-bs-target="#details{{supp.s_id}}"><i class="far fa-eye"></i></p></td>
-            </tr>        
-        {% endfor %}
-            
-        </tbody>
-    </table>
-    
-    <!-- Modal Details-->
-    {% for supp in supplier_info %}
-    <div class="modal fade" id="details{{supp.s_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="loginModalTitle">{{supp.s_agency_name}}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-          <table class="table table-striped table-bordered myTable" style="width: 100%;">
-            <tbody>
-        
-            <tr>
-              <td>Hospital/ Agency Name</td>
-              <td>{{supp.s_agency_name}}</td>
-            </tr>    
-            <tr>
-              <td>No. of available ICU Beds</td>
-              <td>{{supp.icu_beds}}</td>
-            </tr>
-            <tr>
-              <td>No. of available Ventilator Beds</td>
-              <td>{{supp.ventilator_beds}}</td>
-            </tr>
-            <tr>
-              <td>No. of available ICU+Ventilator Beds</td>
-              <td>{{supp.icu_ventilator_beds}} Book now</td>
-              <!-- <td><div class="row"><div class="col-md-6">{{supp.icu_ventilator_beds}}</div><div class="col-md-6"><a href="{% url 'book_now' %}">Book now</a> </div> </div> </td> -->
-            </tr>
-            <tr>
-              <td>Is Oxygen Cylinder available?</td>
-              <td>{{supp.oxygen}}</td> </tr>
-            <tr>
-              <td>States where the services are provided</td>
-              <td>{{supp.s_state}}</td>
-            </tr>
-            <tr>
-              <td>Districts where the services are provided</td>
-              <td>{{supp.s_district}}</td></tr>    
-            <tr>
-              <td>Contact us at</td>
-              <td>{{supp.s_emailid}}</td></tr>
-        </tbody>
-    </table>
-          </div>
-          <div class="modal-footer">
-            <a href="{% url 'book_now' %}">Book now</a> 
-            {% comment %} <a href="{% url 'book_now' %}">{{supp.s_id}}</a> {% endcomment %}
-          </div>
+<div class="row d-flex justify-content-center align-items-center">
+    <nav class="navbar sticky-top navbar-light" style="margin-top: 10px;">
+        <div class="container justify-content-end">
+            <!-- <a class="navbar-brand" href="{% url 'profile_patient' %}">View Profile</a>
+      <a class="navbar-brand" href="{% url 'logout_user' %}">Logout</a> -->
+            <a href="{% url 'profile_patient' %}" style="background: #fb7267; padding: 13px 30px; border: none; color: white; font-size: 18px; border-radius: 30px; font-family: 'Hind Siliguri', sans-serif; text-decoration: none;">View Profile</a>
+            <a href="{% url 'logout_user' %}" style="background: #fb7267; padding: 13px 30px; border: none; color: white; font-size: 18px; border-radius: 30px; font-family: 'Hind Siliguri', sans-serif; margin-left: 10px; text-decoration: none;">Logout</a>
         </div>
-      </div>
+    </nav>
+</div>
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-12 col-lg-12 col-12 col-xxl-12">
+        <table class="table table-striped table-bordered myTable" style="width: 100%; margin-top: 10px;">
+            <thead>
+                <tr style="background: #fb7267; color: white; font-size: 18px; font-family: 'Hind Siliguri', sans-serif;">
+                    {% comment %}
+                    <th>Sr. No.</th> {% endcomment %}
+                    <th>Hospital/ Agency Name</th>
+                    <th>No. of ICU beds</th>
+                    <th>No. of Ventilator beds</th>
+                    <th>No. of ICU+Ventilator beds</th>
+                    <th>Oxygen Availablility</th>
+                    <th>Locality</th>
+                    <th>More Details</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for supp in supplier_info %}
+                <tr style="font-size: 16px; font-family: sans-serif;">
+                    {% comment %}
+                    <td>{{supp.s_id}}</td> {% endcomment %}
+                    <td>{{supp.s_agency_name}}</td>
+                    <td>{{supp.icu_beds}}</td>
+                    <td>{{supp.ventilator_beds}}</td>
+                    <td>{{supp.icu_ventilator_beds}}</td>
+                    <td>{{supp.oxygen}}</td>
+                    <td>{{supp.s_state}}, {{supp.s_district}}</td>
+                    <td>
+                        <p data-bs-toggle="modal" data-bs-target="#details{{supp.s_id}}"><i class="far fa-eye"></i></p>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
     </div>
-  {% endfor %}
-{% endblock content%}
+</div>
+<!-- Modal Details-->
+{% for supp in supplier_info %}
+<div class="modal fade" id="details{{supp.s_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalTitle">{{supp.s_agency_name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered myTable" style="width: 100%;">
+                    <tbody>
+
+                        <tr>
+                            <td>Hospital/ Agency Name</td>
+                            <td>{{supp.s_agency_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>No. of available ICU Beds</td>
+                            <td>{{supp.icu_beds}}</td>
+                        </tr>
+                        <tr>
+                            <td>No. of available Ventilator Beds</td>
+                            <td>{{supp.ventilator_beds}}</td>
+                        </tr>
+                        <tr>
+                            <td>No. of available ICU+Ventilator Beds</td>
+                            <td>{{supp.icu_ventilator_beds}} Book now</td>
+                            <!-- <td><div class="row"><div class="col-md-6">{{supp.icu_ventilator_beds}}</div><div class="col-md-6"><a href="{% url 'book_now' %}">Book now</a> </div> </div> </td> -->
+                        </tr>
+                        <tr>
+                            <td>Is Oxygen Cylinder available?</td>
+                            <td>{{supp.oxygen}}</td>
+                        </tr>
+                        <tr>
+                            <td>States where the services are provided</td>
+                            <td>{{supp.s_state}}</td>
+                        </tr>
+                        <tr>
+                            <td>Districts where the services are provided</td>
+                            <td>{{supp.s_district}}</td>
+                        </tr>
+                        <tr>
+                            <td>Contact us at</td>
+                            <td>{{supp.s_emailid}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'book_now' %}">Book now</a> {% comment %} <a href="{% url 'book_now' %}">{{supp.s_id}}</a> {% endcomment %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %} {% endblock content%}

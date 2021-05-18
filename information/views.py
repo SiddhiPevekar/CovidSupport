@@ -145,6 +145,13 @@ def patient_login(request):
             # return render(request, 'information/index.html')
     return render(request, 'information/patient_homepage.html')
 
+def logout_user(request):
+    global user_s
+    global user_p
+    user_s =""
+    user_p =""
+    return redirect('/')
+
 def profile_patient(request):
     global user_p
     if user_p!="":
@@ -239,28 +246,24 @@ def update_supplier(request):
 # def detail(request, id):
 #     product=Product.objects.get(id=id)
 #     context={'product':product}
+
+# def book_now(request):
+#     global user_p
+#     # global user_s
+#     # global book_s
+#     if user_p!="":
+#         print(user_p)
+#         # s_id = request.GET.get('s_id')
+#         # s = Supplier.objects.get(pk=s_id)
+#         # print(s)
+#         # pat = models.Patient.objects.filter(p_username=user_p)
+#         # supp = models.Supplier.objects.filter(s_emailid=book_s)
+#         # print(supp)
+#         # for i in supp:
+#     #try to create objects for inner functions
+#     # return redirect('/')
+#     return render(request, 'information/book_requirement.html')
+
+
 def book_now(request):
-    global user_p
-    # global user_s
-    # global book_s
-    if user_p!="":
-        print(user_p)
-        # s_id = request.GET.get('s_id')
-        # s = Supplier.objects.get(pk=s_id)
-        # print(s)
-        # pat = models.Patient.objects.filter(p_username=user_p)
-        # supp = models.Supplier.objects.filter(s_emailid=book_s)
-        # print(supp)
-        # for i in supp:
-    #try to create objects for inner functions
-    # return redirect('/')
     return render(request, 'information/book_requirement.html')
-
-
-def logout_user(request):
-    global user_s
-    global user_p
-    user_s =""
-    user_p =""
-    return redirect('/')
-           
