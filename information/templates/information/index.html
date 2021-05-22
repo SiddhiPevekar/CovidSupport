@@ -20,20 +20,42 @@
         textarea {
             outline: none;
             box-shadow: none !important;
-            border: 1px solid #ccc !important;
+            border: none;
+            border-radius: 0px;
+            border-bottom: 3px #fb7267 solid !important;
         }
+        
+        input[type="email"],
+        textarea {
+            outline: none;
+            box-shadow: none !important;
+            border: none;
+            border-radius: 0px;
+            border-bottom: 3px #fb7267 solid !important;
+        }
+        
+        input[type="password"],
+        textarea {
+            outline: none;
+            box-shadow: none !important;
+            border: none;
+            border-radius: 0px;
+            border-bottom: 3px #fb7267 solid !important;
+        }
+        /* #border {
+            background-color: #fb7267;
+            border-radius: 36% 64% 0% 100% / 42% 0% 100% 58%;
+        } */
     </style>
 </head>
 
 <body>
-
     <section class="main_heading">
         <div class="container">
             <div class="row d-flex justify-content-center align-items-center">
-                <nav class="navbar sticky-top navbar-light" style="margin-top: 20px;">
+                <nav class="navbar sticky-top" style="margin-top: 20px;">
                     <div class="container justify-content-end">
-                        <a href="#live_data" style="color: #2222af; font-size: 23px; font-family: sans-serif; text-decoration: none;margin-right: 30px; letter-spacing: 0.8px;">COVID'19 live status</a>
-                        <a href="" style="color: #2222af; font-size: 23px; font-family: sans-serif; text-decoration: none;">Health Care</a>
+                        <a href="#live_data" style="color: #2222af; font-size: 23px; font-family: sans-serif; text-decoration: none;margin-right: 30px; letter-spacing: 0.8px;">COVID'19 live status</a> {% comment %} <a href="{% url 'health_care' %}" style="color: #2222af; font-size: 23px; font-family: sans-serif; text-decoration: none;">Health Care</a>                        {% endcomment %}
                     </div>
                 </nav>
             </div>
@@ -136,7 +158,7 @@
     <!-- Modal Patient Login-->
     <div class="modal fade" id="login_patient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style="border-radius: 15px;">
                 <!-- <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -149,7 +171,7 @@
             <button type="button" class="btn btn-primary">Save changes</button>
           </div> -->
                 <div class="modal-header" style="background: #fb7267;">
-                    <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+                    <h5 class="modal-title" id="loginModalTitle" style="color: white; font-size: 25px;">Login Here</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -180,7 +202,7 @@
         <div class="modal-dialog">
             <div class="modal-content" style="border-radius: 15px;">
                 <div class="modal-header" style="background: #fb7267;">
-                    <h5 class="modal-title" id="loginModalTitle">Register Here</h5>
+                    <h5 class="modal-title" id="loginModalTitle" style="color: white; font-size: 25px;">Register Here</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -217,7 +239,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <p>already have account?<a href="#" data-bs-toggle="modal" data-bs-target="#login_patient"> Login here</a></p>
+                    <p>already have account?<a href="#" data-bs-toggle="modal" data-bs-target="#login_patient" style="color: #fb7267; text-decoration: none; font-size: 19px;"> Login here</a></p>
                 </div>
             </div>
         </div>
@@ -226,20 +248,10 @@
     <!-- Modal Supplier login-->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div> -->
+            <div class="modal-content" style="border-radius: 15px;">
+
                 <div class="modal-header" style="background: #fb7267;">
-                    <h5 class="modal-title" id="loginModalTitle">Login Here</h5>
+                    <h5 class="modal-title" id="loginModalTitle" style="color: white; font-size: 25px;">Login Here</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

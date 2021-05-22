@@ -3,8 +3,9 @@ from . import models
 # Create your views here.
 from django.shortcuts import redirect, render
 import requests
-from .models import Supplier
+from .models import Booking, Patient, Supplier
 from matplotlib import pyplot as plt
+from django.db.models import F
 
 user_s =""
 user_p =""
@@ -68,11 +69,11 @@ def create_image(state_data):
     # pprint(data)
     plt.savefig('information/static/information/assets/img/s1.png')
 
-if __name__ == '__main__':
-    data_dict = download_data()
-    country_data = data_dict['totals']
-    state_list = data_dict['states']
-    create_image(state_list)
+# if __name__ == '__main__':
+#     data_dict = download_data()
+#     country_data = data_dict['totals']
+#     state_list = data_dict['states']
+#     create_image(state_list)
 
 
 def s_loginpage(request):
@@ -92,12 +93,10 @@ def s_loginpage(request):
             sup= models.Supplier.objects.filter(s_emailid = username)
             supval = {
                 "supplier": sup #to get particular object
-            }           
-
+            }  
             return render(request, 'information/supplier_home.html',supval)            
 
         if bool_ans == False:
-
             # return render(request, 'information/index.html')
             return redirect('/')
 
@@ -161,12 +160,12 @@ def profile_patient(request):
             "patient": pat
         }
 
-    return render(request, 'information/patient_profile.html',patval)
+        return render(request, 'information/patient_profile.html',patval)
+    return render(request, 'information/patient_profile.html')
     
 def update_patient(request):
     global user_p
     data = Supplier.objects.all()
-    global user_p
     if user_p!="":
         print(user_p)
         pat = models.Patient.objects.filter(p_username=user_p)
@@ -243,27 +242,67 @@ def update_supplier(request):
             }
         return render(request, 'information/index.html', supplier)
     return render(request, 'information/index.html')
-# def detail(request, id):
-#     product=Product.objects.get(id=id)
-#     context={'product':product}
-
-# def book_now(request):
-#     global user_p
-#     # global user_s
-#     # global book_s
-#     if user_p!="":
-#         print(user_p)
-#         # s_id = request.GET.get('s_id')
-#         # s = Supplier.objects.get(pk=s_id)
-#         # print(s)
-#         # pat = models.Patient.objects.filter(p_username=user_p)
-#         # supp = models.Supplier.objects.filter(s_emailid=book_s)
-#         # print(supp)
-#         # for i in supp:
-#     #try to create objects for inner functions
-#     # return redirect('/')
-#     return render(request, 'information/book_requirement.html')
-
 
 def book_now(request):
+    global user_p
+    print(user_p)
+    global book_s
+    book_s = ""
+    patient=Patient.objects.filter(p_username=user_p)
+    if request.method == 'POST':
+        s_govcode = request.POST.get('s_govcode')
+        print(s_govcode)
+        gov_id_data=Supplier.objects.filter(s_govcode=s_govcode)
+        print(gov_id_data)
+        book_s = s_govcode
+        print(book_s)
+        gov={
+            "s_gov_id":gov_id_data,
+            "current_patient":patient
+        }
+        return render(request, 'information/book_requirement.html', gov)
     return render(request, 'information/book_requirement.html')
+
+def book(request):
+    global user_p
+    global book_s 
+    print(user_p)
+    print(book_s)
+    data = Supplier.objects.all()
+    pat= {
+        "supplier_info": data
+    }
+    if user_p!="":
+        print(user_p)
+        if request.method == "POST":
+            bed = request.POST.get('bed', False)
+            oxygen = request.POST.get('oxygen', False)
+            patient=request.POST.get('patient', False)
+            supplier=request.POST.get('supplier', False)
+            b_patient=Patient.objects.get(p_username=patient)
+            b_supplier=Supplier.objects.get(s_agency_name=supplier)
+            Booking.objects.create(
+                bed=bed,
+                oxygen=oxygen,
+                patient=b_patient,
+                supplier=b_supplier
+            )
+            print(supplier)
+            if bed=="ICU":
+                b_supplier=Supplier.objects.get(s_agency_name=supplier)
+                b_supplier.icu_beds=F('icu_beds')-1
+                b_supplier.save()
+            elif bed=="Ventilator":
+                b_v=Supplier.objects.get(s_agency_name=supplier)
+                b_v.ventilator_beds=F('ventilator_beds')-1
+                b_v.save()
+            elif bed=="ICU+Ventilator":
+                b_i=Supplier.objects.get(s_agency_name=supplier)
+                b_i.icu_ventilator_beds=F('icu_ventilator_beds')-1
+                b_i.save()
+
+        return render(request,'information/patient_homepage.html', pat)
+    return render(request,'information/patient_homepage.html', pat)
+
+# def health_care(request):
+#     return render(request, 'information/health_care.html')

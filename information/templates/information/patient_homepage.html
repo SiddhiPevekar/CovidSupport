@@ -79,8 +79,7 @@
                         </tr>
                         <tr>
                             <td>No. of available ICU+Ventilator Beds</td>
-                            <td>{{supp.icu_ventilator_beds}} Book now</td>
-                            <!-- <td><div class="row"><div class="col-md-6">{{supp.icu_ventilator_beds}}</div><div class="col-md-6"><a href="{% url 'book_now' %}">Book now</a> </div> </div> </td> -->
+                            <td>{{supp.icu_ventilator_beds}}</td>
                         </tr>
                         <tr>
                             <td>Is Oxygen Cylinder available?</td>
@@ -102,7 +101,12 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <a href="{% url 'book_now' %}">Book now</a> {% comment %} <a href="{% url 'book_now' %}">{{supp.s_id}}</a> {% endcomment %}
+                <form action="{% url 'book_now' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" placeholder="enter the hospital code" id="s_govcode" name="s_govcode" value={{supp.s_govcode}} style="border-bottom: 3px #fb7267 solid !important;">
+                    <button type="submit" class="btn" style="background: #fb7267;">Book now</button>
+                </form>
+                {% comment %} <a href="{% url 'book_now' %}">{{supp.s_id}}</a> {% endcomment %}
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@
     <div class="container justify-content-end">
       {% comment %} <a class="navbar-brand" href="{% url 'logout_user' %}">Logout</a> {% endcomment %}
       <a href="{% url 'logout_user' %}" style="background-color: #2222af; padding: 13px 30px; border: none; font-size: 18px; border-radius: 30px; color: white; font-family: 'Hind Siliguri', sans-serif; margin-left: 10px; text-decoration: none;">Logout</a>
+      {% comment %} <a href="{% url 'patient_login_homepage' %}" style="background-color: #2222af; padding: 13px 30px; border: none; font-size: 18px; border-radius: 30px; color: white; font-family: 'Hind Siliguri', sans-serif; margin-left: 10px; text-decoration: none;">Facilities</a> {% endcomment %}
     </div>
   </nav>
 </div>
@@ -18,7 +19,7 @@
     <form action="{% url 'update_patient' %}" method="post"> 
       {% csrf_token %}<!--action path('supplier_home.html', views.s_loginpage, name="supplier_homepage"),-->
       <div class="row mb-3">
-        <label for="p_username" class="col-sm-2 col-form-label">Patient Name</label>
+        <label for="p_username" class="col-sm-2 col-form-label">Username</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="p_username" name="p_username" value="{{j.p_username}}">
         </div>

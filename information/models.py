@@ -1,6 +1,18 @@
+
 from django.db import models
+from django.db.models.deletion import CASCADE
 
 # Create your models here.
+
+OPTIONS= (
+    ('ICU','ICU beds'),
+    ('Ventilator','Ventilator beds'),
+    ('ICU+Ventilator','ICU+Ventilator beds'),
+)
+OXYGEN= (
+    ('cylinder','Oxygen Cylinder'),
+    ('refill','Oxygen Cylinder Refill'),
+)
 
 class Supplier(models.Model):
     s_id=models.AutoField(primary_key=True)
@@ -13,6 +25,7 @@ class Supplier(models.Model):
     ventilator_beds=models.IntegerField(null=True, blank=True)
     icu_ventilator_beds=models.IntegerField(null=True, blank=True)
     oxygen=models.CharField(max_length=5, null=True, blank=True)
+    s_govcode=models.CharField(max_length=5, null=True, blank=True)
 
     def __str__(self):
         return self.s_agency_name
@@ -29,6 +42,16 @@ class Patient(models.Model):
     def __str__(self):
         return self.p_username
 
+
+class Booking(models.Model):
+    booking_id=models.AutoField(primary_key=True)
+    bed=models.CharField(max_length=40,choices=OPTIONS, null=True)
+    oxygen=models.CharField(max_length=40,choices=OXYGEN, null=True)
+    patient=models.ForeignKey(Patient, on_delete=CASCADE, null= True)
+    supplier=models.ForeignKey(Supplier, on_delete=CASCADE, null= True)
+
+    def __str__(self):
+        return self.bed
 
 # class Supplier(models.Model):
 #     s_id=models.AutoField(primary_key=True)

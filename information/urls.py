@@ -27,6 +27,8 @@ urlpatterns = [
     path('profile_patient',views.profile_patient, name="profile_patient"),
     path('update_patient', views.update_patient, name="update_patient"),
     path('logout_user', views.logout_user, name="logout_user"),
-    path('book_now', views.book_now, name="book_now")
+    path('book_now', views.book_now, name="book_now"),
+    # path('health_care',views.health_care, name="health_care")
+    path('book', views.book, name="book"),
 ]
 
