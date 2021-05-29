@@ -12,10 +12,10 @@ user_p =""
 book_s =""
 
 def download_data() -> dict:
-    """
-        Downloads currently available data from scraped from 
-        'https://www.mohfw.gov.in/' website.
-    """
+#     """
+#         Downloads currently available data from scraped from 
+#         'https://www.mohfw.gov.in/' website.
+#     """
     r = requests.get('https://covid19-mohfw.herokuapp.com/', auth=('user', 'pass'))
 
     if(r.status_code == 200):
@@ -41,6 +41,8 @@ def homepage(request):
     create_image(state_data)
     
     return render(request, 'information/index.html' , d)
+    
+    # return render(request, 'information/index.html')
 
 def create_image(state_data):
     data = []
@@ -110,6 +112,9 @@ def patient_register(request):
         p_emailid = request.POST.get('p_emailid')
         p_pass1 = request.POST.get('p_pass1')
         p_pass2 = request.POST.get('p_pass2')
+        # if p_pass1!=p_pass2:
+        #     return render()
+        # else:
         patient_record = models.Patient(p_username=p_username, p_firstname=p_firstname, p_lastname=p_lastname, p_emailid=p_emailid, p_pass1=p_pass1, p_pass2=p_pass2)
         patient_record.save()
         print("Data has been saved")
