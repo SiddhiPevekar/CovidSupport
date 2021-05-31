@@ -79,24 +79,28 @@ def create_image(state_data):
 
 
 def s_loginpage(request):
-    global user_s
+    # global user_s
     if request.method == "POST":
         username = request.POST.get('s_emailid', False)
         password= request.POST.get('s_password', False)
         print(username)
         print(password)
-
-        user_s = username
-        print(user_s)
-
+        # user_s = username
+        # print(user_s)
         bool_ans = models.Supplier.objects.filter(s_emailid=username, s_password=password).exists()#condition to match values are equal or not
-
+        # request.session['supplier']=username
         if bool_ans == True:
-            sup= models.Supplier.objects.filter(s_emailid = username)
-            supval = {
-                "supplier": sup #to get particular object
-            }  
-            return render(request, 'information/supplier_home.html',supval)            
+            request.session['supplier']=username
+            # name=request.session['supplier']
+            # print(name)
+            # sup= models.Supplier.objects.filter(s_emailid = username)
+            # supval = {
+            #     "supplier": sup #to get particular object
+            # # }  
+            # return render(request, 'information/supplier_home.html',supval)   
+            sup= Supplier.objects.filter(s_emailid = request.session["supplier"])   
+            print(sup)   
+            return render(request, 'information/supplier_home.html', {'supplier':sup, 'supplier_data': request.session["supplier"]})
 
         if bool_ans == False:
             # return render(request, 'information/index.html')
@@ -150,10 +154,11 @@ def patient_login(request):
     return render(request, 'information/patient_homepage.html')
 
 def logout_user(request):
-    global user_s
-    global user_p
-    user_s =""
-    user_p =""
+    # global user_s
+    # global user_p
+    # user_s =""
+    # user_p =""
+    del request.session['supplier']
     return redirect('/')
 
 def profile_patient(request):
@@ -206,11 +211,13 @@ def update_patient(request):
     return render(request, 'information/patient_homepage.html')
 
 def update_supplier(request):
-    global user_s 
-    if user_s!="":
-        print(user_s)
+    # global user_s 
+    # if user_s!="":
+    #     print(user_s)
+    if request.session.has_key('supplier'):
         #supp is kind array of object
-        supp = models.Supplier.objects.filter(s_emailid=user_s)
+        # supp = models.Supplier.objects.filter(s_emailid=user_s)
+        supp = models.Supplier.objects.filter(s_emailid=request.session["supplier"])
         if request.method == 'POST':
             # s_id = request.POST.get('s_id')
             s_agency_name = request.POST.get('s_agency_name')

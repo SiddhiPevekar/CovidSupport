@@ -1,4 +1,8 @@
-{% extends 'information/base.html' %} {% load static %} {% block title %}Patient Profile{% endblock title %} {% block content %} {% for j in patient %}
+{% extends 'information/base.html' %} 
+{% load static %} 
+{% block title %}Patient Profile{% endblock title %} 
+{% block content %} 
+{% for j in patient %}
 <div class="row d-flex justify-content-center align-items-center">
     <nav class="navbar sticky-top navbar-light">
         <div class="container justify-content-end">
@@ -59,4 +63,5 @@
         </figure>
     </div>
 </div>
-{% endfor %} {% endblock content %}
+{% endfor %} 
+{% endblock content %}
