@@ -3,8 +3,9 @@ from . import models
 # Create your views here.
 from django.shortcuts import redirect, render
 import requests
-from .models import Booking, Patient, Supplier
+from .models import Booking, Oxygen, Patient, Supplier
 from matplotlib import pyplot as plt
+from django.contrib import messages
 from django.db.models import F
 
 user_s =""
@@ -77,6 +78,23 @@ def create_image(state_data):
 #     state_list = data_dict['states']
 #     create_image(state_list)
 
+def supplier_register(request):
+   if request.method == "POST":
+        s_agency_name = request.POST.get('s_agency_name')
+        s_emailid = request.POST.get('s_emailid')
+        s_govcode=request.POST.get('s_govcode')
+        s_pass1 = request.POST.get('s_pass1')
+        s_pass2 = request.POST.get('s_pass2')
+        oxygen = request.POST.get('oxygen')
+        if s_pass1!=s_pass2:
+            messages.success(request, 'Your Re-entered Password does not match to Password')
+        else:
+            supplier_record = models.Supplier(s_agency_name=s_agency_name, s_emailid=s_emailid, s_pass1=s_pass1, s_pass2=s_pass2,s_govcode=s_govcode)
+            supplier_record.save()
+            oxy_record= models.Oxygen(oxygen=oxygen)
+            oxy_record.save()
+            print("Data has been saved")
+        return redirect('/')
 
 def s_loginpage(request):
     # global user_s
@@ -101,7 +119,6 @@ def s_loginpage(request):
             sup= Supplier.objects.filter(s_emailid = request.session["supplier"])   
             print(sup)   
             return render(request, 'information/supplier_home.html', {'supplier':sup, 'supplier_data': request.session["supplier"]})
-
         if bool_ans == False:
             # return render(request, 'information/index.html')
             return redirect('/')
@@ -116,38 +133,37 @@ def patient_register(request):
         p_emailid = request.POST.get('p_emailid')
         p_pass1 = request.POST.get('p_pass1')
         p_pass2 = request.POST.get('p_pass2')
-        # if p_pass1!=p_pass2:
-        #     return render()
-        # else:
-        patient_record = models.Patient(p_username=p_username, p_firstname=p_firstname, p_lastname=p_lastname, p_emailid=p_emailid, p_pass1=p_pass1, p_pass2=p_pass2)
-        patient_record.save()
-        print("Data has been saved")
+        if p_pass1!=p_pass2:
+            messages.success(request, 'Your Re-entered Password does not match to Password')
+        else:
+            patient_record = models.Patient(p_username=p_username, p_firstname=p_firstname, p_lastname=p_lastname, p_emailid=p_emailid, p_pass1=p_pass1, p_pass2=p_pass2)
+            patient_record.save()
+            print("Data has been saved")
         return redirect('/')
 #    return render(request, 'information/index.html')
 
+
+
 def patient_login(request):
-    global user_p
-    data = Supplier.objects.all()
-    print(data)
+    # global user_p
+    # data = Supplier.objects.all()
+    # print(data)
     if request.method == "POST":
         p_username = request.POST.get('p_username', False)
         p_pass1= request.POST.get('p_pass1', False)
-        
-        print(p_username)
-        user_p = p_username
-        print(user_p)
-
+        # print(p_username)
+        # user_p = p_username
+        # print(user_p)
         bool_ans = models.Patient.objects.filter(p_username=p_username, p_pass1=p_pass1).exists()
-
         if bool_ans == True:
-            pat= models.Patient.objects.filter(p_username=p_username)
-            patval = {
-                "patient": pat,
-                "supplier_info": data
-            }
-
-            return render(request, 'information/patient_homepage.html',patval)
-
+            request.session['patient']=p_username
+            pat= models.Patient.objects.filter(p_username= request.session["patient"])
+            # patval = {
+            #     "patient": pat,
+            #     # "supplier_info": data
+            # }
+            messages.success(request, 'Successfully loggedin')
+            return render(request, 'information/patient_homepage.html',{'patient':pat, 'patient_data': request.session["patient"]})
         if bool_ans == False:
             return redirect('/')
             # return render(request, 'information/index.html')

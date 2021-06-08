@@ -30,5 +30,6 @@ urlpatterns = [
     path('book_now', views.book_now, name="book_now"),
     # path('health_care',views.health_care, name="health_care")
     path('book', views.book, name="book"),
+    path('supplier_register', views.supplier_register, name="supplier_register")
 ]
 

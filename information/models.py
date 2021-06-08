@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.db.models.deletion import CASCADE
 
@@ -18,17 +17,40 @@ class Supplier(models.Model):
     s_id=models.AutoField(primary_key=True)
     s_agency_name=models.CharField(max_length=100, null=True, blank=True)
     s_emailid=models.EmailField(('email address'),  null=True, blank=True)
-    s_password=models.CharField(max_length=40, default='name4587', null=True, blank=True)
-    s_state=models.CharField(max_length=70, null=True, blank=True)
-    s_district=models.CharField(max_length=70, null=True, blank=True)
-    icu_beds=models.IntegerField(null=True, blank=True)
-    ventilator_beds=models.IntegerField(null=True, blank=True)
-    icu_ventilator_beds=models.IntegerField(null=True, blank=True)
-    oxygen=models.CharField(max_length=5, null=True, blank=True)
+    s_pass1=models.CharField(max_length=40, null=True, blank=True)
+    s_pass2=models.CharField(max_length=40, null=True, blank=True)
     s_govcode=models.CharField(max_length=5, null=True, blank=True)
 
     def __str__(self):
         return self.s_agency_name
+
+class ICU(models.Model):
+    s_icu_id=models.AutoField(primary_key=True)
+    supplier=models.ForeignKey(Supplier, on_delete=CASCADE, null= True)
+    i_state=models.CharField(max_length=70, null=True, blank=True)
+    i_district=models.CharField(max_length=70, null=True, blank=True)
+    icu_beds=models.IntegerField(null=True, blank=True)
+
+class Ventilator(models.Model):
+    s_ventilator_id=models.AutoField(primary_key=True)
+    supplier=models.ForeignKey(Supplier, on_delete=CASCADE, null= True)
+    v_state=models.CharField(max_length=70, null=True, blank=True)
+    v_district=models.CharField(max_length=70, null=True, blank=True)
+    ventilator_beds=models.IntegerField(null=True, blank=True)
+
+class IcuVentilator(models.Model):
+    s_icu_ventilator_id=models.AutoField(primary_key=True)
+    supplier=models.ForeignKey(Supplier, on_delete=CASCADE, null= True)
+    iv_state=models.CharField(max_length=70, null=True, blank=True)
+    iv_district=models.CharField(max_length=70, null=True, blank=True)
+    icu_ventilator_beds=models.IntegerField(null=True, blank=True)
+
+class Oxygen(models.Model):
+    s_oxygen_id=models.AutoField(primary_key=True)
+    supplier=models.ForeignKey(Supplier, on_delete=CASCADE, null= True)
+    o_state=models.CharField(max_length=70, null=True, blank=True)
+    o_district=models.CharField(max_length=70, null=True, blank=True)
+    oxygen=models.CharField(max_length=5, null=True, blank=True)
 
 class Patient(models.Model):
     p_id=models.AutoField(primary_key=True)
